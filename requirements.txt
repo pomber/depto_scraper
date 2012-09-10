@@ -1,0 +1,4 @@
+beautifulsoup4==4.0.4
+gspread==0.0.12
+mechanize==0.1.11
+
