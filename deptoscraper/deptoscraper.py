@@ -1,3 +1,4 @@
+from buscainmueblescraper import BuscaInmuebleScraper
 from zonapropscraper import ZonaPropScraper
 from argenpropscraper import ArgenPropScraper
 from deptodatasource import DeptoDataSource
@@ -20,6 +21,8 @@ def choose_scraper(url):
 		return ArgenPropScraper()
 	elif "zonaprop" in url:
 		return ZonaPropScraper()
+	elif "buscainmueble" in url:
+		return BuscaInmuebleScraper()
 	else:
 		raise Exception("Unrecognized search URL")
 
