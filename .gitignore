@@ -29,3 +29,6 @@ pip-log.txt
 #Sublime
 *.sublime-project
 *.sublime-workspace
+
+# local cache
+*.cache
