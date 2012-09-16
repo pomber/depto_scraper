@@ -2,9 +2,13 @@ import gspread
 
 class DeptoDataSource:
 	
-	def __init__(self):
-		gc = gspread.login("your_google_username", "your_google_password")
-		self.sheet = gc.open("your_google_spreadsheet_name").sheet1
+	def __init__(self, config):
+		username = config["google.username"]
+		password = config["google.password"]
+		sheetname = config["google.sheetname"]
+
+		gc = gspread.login(username, password)
+		self.sheet = gc.open(sheetname).sheet1
 		self.new_row = int(self.sheet.cell(1,1).value) + 2
 		self.ids = self.sheet.col_values(2)
 		
