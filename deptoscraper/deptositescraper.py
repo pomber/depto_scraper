@@ -6,21 +6,11 @@ import mechanize
 class DeptoSiteScraper:
 	def __init__(self):
 		self.browser = mechanize.Browser()
-		
-	def get_list(self, search_url):
-		deptos = []
-		url = search_url
-		while url is not None:
-			page = self.browser.open(url).read()
-			soup = BeautifulSoup(page)
-			deptos += self.get_headers(soup)
-			url = self.get_next_page_url(soup)
-		return deptos
 	
 	def scrap_results(self, search_url):
 		page = self.browser.open(search_url).read()
 		soup = BeautifulSoup(page)
-		return (self.get_headers(soup), self.get_next_page_url(soup))
+		return self.get_headers(soup), self.get_next_page_url(soup)
 	
 	def get_depto(self, id, depto_url):
 		page = self.browser.open(depto_url).read()

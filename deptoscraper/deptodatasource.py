@@ -3,6 +3,8 @@ import gspread
 class DeptoDataSource:
 	
 	def __init__(self, config):
+		print "Initializing repository"
+		
 		username = config["google.username"]
 		password = config["google.password"]
 		sheetname = config["google.sheetname"]
@@ -10,7 +12,7 @@ class DeptoDataSource:
 		gc = gspread.login(username, password)
 		self.sheet = gc.open(sheetname).sheet1
 		self.new_row = int(self.sheet.cell(1,1).value) + 2
-		self.ids = self.sheet.col_values(2)
+		self.ids = set(self.sheet.col_values(2))
 		
 	def add(self, depto):		
 		new_cells = self.sheet.range('B{0}:I{0}'.format(self.new_row))

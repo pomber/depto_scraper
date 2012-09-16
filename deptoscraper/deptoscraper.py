@@ -8,22 +8,12 @@ def scrap(search_url):
 	scraper = choose_scraper(search_url)
 	repository = DeptoDataSource(config)
 
-	url = search_url
-	page = 1
-	while url is not None:
-		headers, url = scraper.scrap_results(url)
-		index = 1
-		total = len(headers)
-		print "--- Scraping page {0} ---".format(page)
-		for header in headers:
-			if header["id"] in repository.ids:
-				pass #print "{0}/{1} - Ignoring {2}".format(index, total, header["id"])
-			else:
-				print "{0}/{1} - Adding {2}".format(index, total, header["id"])
-				depto = scraper.get_depto(header["id"], header["link"])
-				repository.add(depto)
-			index += 1
-		page += 1
+	page_url = search_url
+	page_index = 1
+
+	while page_url is not None:
+		page_url = scrap_page(scraper, repository, page_url, page_index)		
+		page_index += 1
 
 def choose_scraper(url):	
 	if "argenprop" in url:
@@ -32,3 +22,20 @@ def choose_scraper(url):
 		return ZonaPropScraper()
 	else:
 		raise Exception("Unrecognized search URL")
+
+def scrap_page(scraper, repository, url, page_index):
+	print "--- Scraping page {0} ---".format(page_index)
+	headers, next_url = scraper.scrap_results(url)
+	for header in headers:
+		if header["id"] not in repository.ids:
+			scrap_depto(scraper, repository, header["id"], header["link"])
+	return next_url
+
+def scrap_depto(scraper, repository, depto_id, depto_url):
+	depto = scraper.get_depto(depto_id, depto_url)	
+	if should_save(depto):
+		print "Adding {2}".format(depto_id)
+		repository.add(depto)
+
+def should_save(depto):
+	return depto.photo_count > 1
