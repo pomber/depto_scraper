@@ -49,7 +49,7 @@ class ZonaPropScraper(DeptoSiteScraper):
 		return self.get_feature(soup, "Expensas ($):")	
 	
 	def get_room_count(self, soup):
-		return self.get_feature(soup, "Ambientes:")	
+		return clear(self.get_feature(soup, "Ambientes:"))
 	
 	def get_feature(self, soup, feature):
 		label = soup.select(".caracteristicas")[0].find("dt",text=feature)

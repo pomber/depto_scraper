@@ -34,7 +34,7 @@ def scrap_page(scraper, repository, url, page_index):
 def scrap_depto(scraper, repository, depto_id, depto_url):
 	depto = scraper.get_depto(depto_id, depto_url)	
 	if should_save(depto):
-		print "Adding {2}".format(depto_id)
+		print "Adding {0}".format(depto_id)
 		repository.add(depto)
 
 def should_save(depto):
