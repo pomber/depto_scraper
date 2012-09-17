@@ -1,7 +1,8 @@
 from buscainmueblescraper import BuscaInmuebleScraper
-from zonapropscraper import ZonaPropScraper
 from argenpropscraper import ArgenPropScraper
+from zonapropscraper import ZonaPropScraper
 from deptodatasource import DeptoDataSource
+from iccawebscraper import IccawebScraper
 from config import config
 import sys	
 		
@@ -23,6 +24,8 @@ def choose_scraper(url):
 		return ZonaPropScraper()
 	elif "buscainmueble" in url:
 		return BuscaInmuebleScraper()
+	elif "iccaweb" in url:
+		return IccawebScraper()
 	else:
 		raise Exception("Unrecognized search URL")
 

@@ -8,6 +8,7 @@ class DeptoSiteScraper:
 		self.browser = mechanize.Browser()
 	
 	def scrap_results(self, search_url):
+		#print search_url
 		page = self.browser.open(search_url).read()
 		soup = BeautifulSoup(page)
 		return self.get_headers(soup), self.get_next_page_url(soup)
